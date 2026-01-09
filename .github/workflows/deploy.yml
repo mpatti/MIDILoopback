@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - claude/chrome-midi-loopback-tiiKw
+      - claude/fix-short-note-echo-EB1Yb
       - main
   workflow_dispatch:
 
