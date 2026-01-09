@@ -277,8 +277,9 @@ class MIDILoopback {
                 }
             }, delay);
 
-            // Schedule note off (same duration as delay for next echo)
-            const noteOffDelay = delay + (this.params.delayTime * swingFactor);
+            // Schedule note off (short duration for clear attack - 80ms)
+            const echoNoteDuration = 80; // Fixed short duration for echo notes
+            const noteOffDelay = delay + echoNoteDuration;
             const noteOffTimeout = setTimeout(() => {
                 if (this.outputDevice) {
                     this.outputDevice.send([0x80 | channel, shiftedNote, 0]);
