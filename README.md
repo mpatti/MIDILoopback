@@ -2,6 +2,17 @@
 
 A Chrome web application that creates a MIDI loopback/echo effect for creative musical performances. Designed for use with Bluetooth MIDI devices like the Yamaha Disklavier.
 
+## Live Demo
+
+**Try it now:** [https://mpatti.github.io/MIDILoopback/](https://mpatti.github.io/MIDILoopback/)
+
+The app is automatically deployed via GitHub Actions. Simply open the link in Chrome, connect your MIDI device, and start creating!
+
+> **Note:** You'll need to enable GitHub Pages in your repository settings if this is the first deployment:
+> 1. Go to repository Settings → Pages
+> 2. Under "Build and deployment", select Source: "GitHub Actions"
+> 3. The workflow will automatically deploy on every push
+
 ## Features
 
 ### Core Functionality
