@@ -219,13 +219,8 @@ class MIDILoopback {
             // Send original note immediately
             this.outputDevice.send([status, note, velocity]);
 
-            // Handle note off - cancel any scheduled echoes for this note
-            if (command === 0x08 || (command === 0x09 && velocity === 0)) {
-                this.handleNoteOff(note, channel);
-                return;
-            }
-
-            // Schedule echoes for note on
+            // Schedule echoes for note on only
+            // Note: echoes continue playing even after note-off to support short notes
             if (command === 0x09 && velocity > 0) {
                 this.scheduleEchoes(status, note, velocity, channel);
             }
