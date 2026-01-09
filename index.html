@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative MIDI echo/loopback effect for musical performances">
+    <title>MIDI Loopback - Creative Performance Tool</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎹 MIDI Loopback</h1>
+            <p class="subtitle">Creative Echo Performance Tool</p>
+        </header>
+
+        <div class="connection-panel">
+            <div class="status-indicator" id="statusIndicator">
+                <span class="status-dot"></span>
+                <span id="statusText">Disconnected</span>
+            </div>
+            <div class="device-selectors">
+                <div class="selector-group">
+                    <label for="midiInput">MIDI Input Device:</label>
+                    <select id="midiInput" disabled>
+                        <option>No devices available</option>
+                    </select>
+                </div>
+                <div class="selector-group">
+                    <label for="midiOutput">MIDI Output Device:</label>
+                    <select id="midiOutput" disabled>
+                        <option>No devices available</option>
+                    </select>
+                </div>
+            </div>
+            <button id="connectBtn" class="btn-primary" disabled>Connect to MIDI</button>
+        </div>
+
+        <div class="control-panel">
+            <div class="panel-section">
+                <h2>Echo Controls</h2>
+                <div class="control-grid">
+                    <div class="control-item">
+                        <label for="delayTime">
+                            Delay Time
+                            <span class="value-display" id="delayTimeValue">500ms</span>
+                        </label>
+                        <input type="range" id="delayTime" min="50" max="2000" value="500" step="10">
+                        <div class="range-labels">
+                            <span>50ms</span>
+                            <span>2s</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="repetitions">
+                            Repetitions
+                            <span class="value-display" id="repetitionsValue">3</span>
+                        </label>
+                        <input type="range" id="repetitions" min="1" max="16" value="3" step="1">
+                        <div class="range-labels">
+                            <span>1</span>
+                            <span>16</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="velocityDecay">
+                            Velocity Decay
+                            <span class="value-display" id="velocityDecayValue">0.80</span>
+                        </label>
+                        <input type="range" id="velocityDecay" min="0" max="100" value="80" step="1">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="feedback">
+                            Feedback
+                            <span class="value-display" id="feedbackValue">0.50</span>
+                        </label>
+                        <input type="range" id="feedback" min="0" max="100" value="50" step="1">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Creative Parameters</h2>
+                <div class="control-grid">
+                    <div class="control-item">
+                        <label for="pitchShift">
+                            Pitch Shift
+                            <span class="value-display" id="pitchShiftValue">0 semitones</span>
+                        </label>
+                        <input type="range" id="pitchShift" min="-12" max="12" value="0" step="1">
+                        <div class="range-labels">
+                            <span>-1 octave</span>
+                            <span>+1 octave</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="timeSpread">
+                            Time Spread
+                            <span class="value-display" id="timeSpreadValue">0ms</span>
+                        </label>
+                        <input type="range" id="timeSpread" min="-200" max="200" value="0" step="5">
+                        <div class="range-labels">
+                            <span>-200ms</span>
+                            <span>+200ms</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="probability">
+                            Echo Probability
+                            <span class="value-display" id="probabilityValue">100%</span>
+                        </label>
+                        <input type="range" id="probability" min="0" max="100" value="100" step="1">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="humanize">
+                            Humanize
+                            <span class="value-display" id="humanizeValue">0ms</span>
+                        </label>
+                        <input type="range" id="humanize" min="0" max="50" value="0" step="1">
+                        <div class="range-labels">
+                            <span>0ms</span>
+                            <span>50ms</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="velocityHumanize">
+                            Velocity Variation
+                            <span class="value-display" id="velocityHumanizeValue">0</span>
+                        </label>
+                        <input type="range" id="velocityHumanize" min="0" max="20" value="0" step="1">
+                        <div class="range-labels">
+                            <span>0</span>
+                            <span>20</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="swingAmount">
+                            Swing Amount
+                            <span class="value-display" id="swingAmountValue">50%</span>
+                        </label>
+                        <input type="range" id="swingAmount" min="0" max="100" value="50" step="1">
+                        <div class="range-labels">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Filter Controls</h2>
+                <div class="control-grid">
+                    <div class="control-item">
+                        <label for="minVelocity">
+                            Min Velocity
+                            <span class="value-display" id="minVelocityValue">1</span>
+                        </label>
+                        <input type="range" id="minVelocity" min="1" max="127" value="1" step="1">
+                        <div class="range-labels">
+                            <span>1</span>
+                            <span>127</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="maxVelocity">
+                            Max Velocity
+                            <span class="value-display" id="maxVelocityValue">127</span>
+                        </label>
+                        <input type="range" id="maxVelocity" min="1" max="127" value="127" step="1">
+                        <div class="range-labels">
+                            <span>1</span>
+                            <span>127</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="minNote">
+                            Min Note
+                            <span class="value-display" id="minNoteValue">0 (C-1)</span>
+                        </label>
+                        <input type="range" id="minNote" min="0" max="127" value="0" step="1">
+                        <div class="range-labels">
+                            <span>0</span>
+                            <span>127</span>
+                        </div>
+                    </div>
+
+                    <div class="control-item">
+                        <label for="maxNote">
+                            Max Note
+                            <span class="value-display" id="maxNoteValue">127 (G9)</span>
+                        </label>
+                        <input type="range" id="maxNote" min="0" max="127" value="127" step="1">
+                        <div class="range-labels">
+                            <span>0</span>
+                            <span>127</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Presets</h2>
+                <div class="preset-controls">
+                    <select id="presetSelect">
+                        <option value="">-- Select Preset --</option>
+                        <option value="subtle-echo">Subtle Echo</option>
+                        <option value="rhythmic-delay">Rhythmic Delay</option>
+                        <option value="harmonic-cascade">Harmonic Cascade</option>
+                        <option value="chaotic-swarm">Chaotic Swarm</option>
+                        <option value="ascending-spiral">Ascending Spiral</option>
+                        <option value="descending-fade">Descending Fade</option>
+                    </select>
+                    <div class="preset-buttons">
+                        <button id="savePresetBtn" class="btn-secondary">Save Custom</button>
+                        <button id="resetBtn" class="btn-secondary">Reset All</button>
+                        <button id="bypassBtn" class="btn-toggle">Bypass</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h2>Activity Monitor</h2>
+                <div class="activity-monitor">
+                    <div class="monitor-item">
+                        <span>Input Notes:</span>
+                        <span id="inputCount" class="monitor-value">0</span>
+                    </div>
+                    <div class="monitor-item">
+                        <span>Echo Notes:</span>
+                        <span id="echoCount" class="monitor-value">0</span>
+                    </div>
+                    <div class="monitor-item">
+                        <span>Active Echoes:</span>
+                        <span id="activeEchoes" class="monitor-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
